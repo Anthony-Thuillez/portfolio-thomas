@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "abouts",
+  "info": {
+    "name": "about",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "what": {
+      "type": "string"
+    },
+    "where": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "richtext"
+    },
+    "services": {
+      "type": "richtext"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "behance": {
+      "type": "string"
+    },
+    "who": {
+      "type": "string"
+    }
+  }
+}
