@@ -123,15 +123,15 @@ export default function Hero({ pageRef, who, what, where, email }) {
       </Navigation>
       <Title>
         <span ref={whoRef}>{ parse(whoModified) }</span>
-        <Tag className="tag" text="who" />
+        <Tag className="tag" position="translate(0, -6px)" text="who" />
       </Title>
       <Title>
         <span ref={whatRef}>{ what }</span>
-        <Tag className="tag" text="what" />
+        <Tag className="tag" position="translate(0, -6px)" text="what" />
       </Title>
       <Title>
         <span ref={whereRef}>{ where }</span>
-        <Tag className="tag" text="where" />
+        <Tag className="tag" position="translate(0, -6px)" text="where" />
       </Title>
       <HeroBottom ref={heroBottomRef}>
         <span>A collection of recent work ↓</span>

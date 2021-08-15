@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
-
 import styled from 'styled-components'
 import { AnimateContext } from '../../contexts/animate.context'
 import { Wrapper } from '../../styles/global'
@@ -43,12 +42,27 @@ const MainContent = styled.div`
 const ProjectList = styled.div`
   margin-top: -80px;
 
-  @media screen and (max-width: ${Breakpoint.m}) {
+  @media screen and (min-width: 481px) and (max-width: ${Breakpoint.m}) {
     margin-top: -58px;
   }
 
-  @media screen and (max-width: ${Breakpoint.xs}) {
-    margin-top: -80px;
+  & > hr:first-child {
+    position: relative;
+    top: -1px;
+  }
+
+  .projectCard:nth-of-type(n+4) {
+    max-height: 105px;
+    transition: max-height 0.4s ease-in-out 0s;
+
+    @media screen and (max-width: ${Breakpoint.m}) {
+      max-height: 83px;
+    }
+
+    &:hover {
+      max-height: 224px;
+      transition: max-height 0.4s ease-in-out 0.5s;
+    }
   }
 `
 
@@ -57,7 +71,9 @@ export default function Page() {
   const [about, setAbout] = useState(null)
   const [experiences, setExperiences] = useState(null)
   const [projects, setProjects] = useState(null)
+  const [currentProject, setCurrentProject] = useState(null)
   const pageRef = useRef(null)
+  const separator = document.querySelectorAll('.js-separator-animate')
 
   useEffect(() => {
     getPersonalInformations(setAbout)
@@ -72,11 +88,31 @@ export default function Page() {
     } else {
       dispatch({ type: 'SET_ON_FIRST_SCROLL', value: true })
     }
+
+    const {scrollTop, clientHeight} = document.documentElement
+
+    for (let i = 0; i < separator.length; i++) {
+      const element = separator[i];
+      const topElementToTopViewport = element.getBoundingClientRect().top
+      
+      if (scrollTop > (scrollTop + topElementToTopViewport).toFixed() - clientHeight * 0.99 ) {
+        element.classList.add('animate')
+      }
+    }
+    
+  }
+
+  const handleClick = (e, projectId) => {
+    const target = e.target
+    const projectCard = target.closest('.js-projectCard')
+    let y = projectCard.getBoundingClientRect().top + pageRef.current.scrollTop - 80
+    pageRef.current.scrollTo({top: y, left: 0, behavior: 'smooth'})
+    setCurrentProject(projectId)
   }
 
   return (
     <>
-      { (about && experiences && projects ) ? (
+      { ( about && experiences && projects ) ? (
         <>
           <PageStyled
             ref={pageRef}
@@ -93,19 +129,20 @@ export default function Page() {
                   email={about.email}
                 />
                 <ProjectList>
-                {
-                  projects.map((project, i) => (
-                    <Project
-                      key={ i }
-                      id={ i }
-                      isOpen={ project.id <= 3 ? true : false }
-                      title={ project.title }
-                      date={ project.date }
-                      client={ project.client }
-                      images={ project.images }
-                    />
-                  ))
-                }
+                  <hr/>
+                  {
+                    projects.map((project) => (
+                      <Project
+                        key={project.id}
+                        title={project.title}
+                        date={project.date}
+                        client={project.client}
+                        images={project.images}
+                        handleClick={(e) => handleClick(e, project.id)}
+                        isActive={project.id === currentProject}
+                      />
+                    ))
+                  }
                 </ProjectList>
               </Wrapper>
             </MainContent>

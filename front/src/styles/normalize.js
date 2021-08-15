@@ -58,6 +58,11 @@ export default createGlobalStyle`
         text-decoration: none;
     }
 
+    hr {
+        border: 0;
+        border-bottom: solid 1px ${Color.border};
+    }
+
     .font-secondary {
         font-family: ${FontFamily.secondary};
     }

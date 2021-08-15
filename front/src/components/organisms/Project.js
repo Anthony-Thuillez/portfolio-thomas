@@ -1,31 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { API_ADDRESS } from '../../api/config'
 import styled from 'styled-components'
-import { AnimateContext } from '../../contexts/animate.context'
-import { Breakpoint, Color, FontFamily } from '../../styles/variables'
+import { Breakpoint, FontFamily } from '../../styles/variables'
+import Separator from '../atoms/Separator'
 import Tag from '../atoms/Tag'
 import ArrowIcon from '../atoms/ArrowIcon'
 
 const Card = styled.div`
   overflow: hidden;
   padding: 20px 0 26px;
-  height: ${ ({ isOpen }) => isOpen ? '407px' : '106px' };
-  border-bottom: solid 1px ${Color.border};
   cursor: pointer;
-  transition: height 0.4s ease-in-out 0s;
-  // background: ${ ({ projectIsOpen }) => projectIsOpen ? 'red' : 'none' };
-
-  @media screen and (max-width: ${Breakpoint.m}) {
-    height: ${ ({ isOpen }) => isOpen ? '384px' : '84px' };
-  }
 
   &:hover {
-    height: ${ ({ isOpen }) => isOpen ? '407px' : '206px' };
-    transition: height 0.4s ease-in-out 0.5s;
-
-    @media screen and (max-width: ${Breakpoint.m}) {
-      height: ${ ({ isOpen }) => isOpen ? '384px' : '188px' };
-    }
-
     .icon {
       svg {
         transform: rotate(45deg);
@@ -67,30 +53,70 @@ const CardTitle = styled.div`
 
 const CardText = styled.div`
   margin-right: auto;
-
-  @media screen and (max-width: ${Breakpoint.xs}) {
-    width: calc(100% - 13px);
-  }
+  transform: translateY(-4px);
 `
 
 const SliderImages = styled.div`
-  position: relative;
   margin-top: 25px;
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
+  flex-wrap: wrap;
 `
 
 const Slide = styled.div`
   width: calc((100% - ( 3 * 13px )) / 4);
 
-  &:not(:last-child) {
-    margin-right: 13px;
+@media screen and (min-width: 1201px) {
+    &:not(:nth-child(4n)) {
+      margin-right: 13px;
+    }
+
+    &:nth-child(n+5) {
+      margin-top: 17px;
+    }
   }
+  
+  @media screen and (min-width: 751px) and (max-width: ${Breakpoint.l}) {
+    width: calc((100% - ( 2 * 13px )) / 3);
+
+    &:not(:nth-child(3n)) {
+      margin-right: 13px;
+    }
+
+    &:nth-child(n+4) {
+      margin-top: 17px;
+    }
+  }
+
+  @media screen and (min-width: 421px) and (max-width: ${Breakpoint.s}) {
+    width: calc((100% - 13px) / 2);
+
+    &:not(:nth-child(2n)) {
+      margin-right: 13px;
+    }
+
+    &:nth-child(n+3) {
+      margin-top: 17px;
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    width: 100%;
+
+    &:not(:first-child) {
+      margin-top: 17px;
+    }
+  }  
 `
 
 const ImgContainer = styled.div`
-  height: 235px;
+  position: relative;
+  padding: 73.43% 0 0 0; /* 73.43% = 100 / (w / h) = 100 / (320 / 235) */
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 
   &:hover {
     img {
@@ -99,9 +125,15 @@ const ImgContainer = styled.div`
   }
 
   img {
-    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
     width: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
     filter: grayscale(100%);
     transition: filter 0.2s ease-in-out;
   }
@@ -112,51 +144,33 @@ const ImgName = styled.div`
   font-size: 14px;
 `
 
-export default function Project({ isOpen, id, title, date, client, images }) {
-  const {state, dispatch} = useContext(AnimateContext)
-
-
-  function handleClick(e) {
-    const target = e.target.offsetParent.offsetParent
-    let pageY
-
-    if ( id < 3 ) {
-      pageY = 479 + id * 407
-    } else {
-      pageY = 479 + 3 * 407 + ( id - 3 ) * 106
-    }
-
-    target.scrollTo({
-      left: 0,
-      top: pageY,
-      behavior: 'smooth'
-    })
-
-    dispatch({ type: 'SET_PROJECT_IS_OPEN', value: true })
-  }
+export default function Project({ title, date, client, images, handleClick, isActive }) {
   
   return (
-    <Card projectIsOpen={ state.projectIsOpen } isOpen={isOpen} onClick={(e) => handleClick(e)}>
-      <CardHeader>
-        <CardTitle>{ title }</CardTitle>
-        <Tag position="translate(0, -6px)" text={ date } />
-        <CardText>{ client }</CardText>
-        <div className="icon">
-          <ArrowIcon />
-        </div>
-      </CardHeader>
-      <SliderImages>
-      {
-        images.map((image) => (
-          <Slide key={ image.id }>
-            <ImgContainer>
-              <img src="https://i.skyrock.net/6372/90456372/pics/3211569297_1_4_3SYW6bhI.jpg" alt={ image.name } />
-            </ImgContainer>
-            <ImgName>{ image.name }</ImgName>
-          </Slide>
-        ))
-      }
-      </SliderImages>
-    </Card>
+    <>
+      <Card isActive={isActive} className="projectCard js-projectCard" onClick={handleClick}>
+        <CardHeader>
+          <CardTitle>{ title }</CardTitle>
+          <Tag position="translate(0, -6px)" text={ date } />
+          <CardText>{ client }</CardText>
+          <div className="icon">
+            <ArrowIcon />
+          </div>
+        </CardHeader>
+        <SliderImages className="projectGallery">
+        {
+          images.map((image) => (
+            <Slide key={ image.id }>
+              <ImgContainer>
+                <img src={API_ADDRESS + image.url} alt={ image.name } />
+              </ImgContainer>
+              <ImgName>{ image.name }</ImgName>
+            </Slide>
+          ))
+        }
+        </SliderImages>
+      </Card>
+      <Separator/>
+    </>
   )
 }

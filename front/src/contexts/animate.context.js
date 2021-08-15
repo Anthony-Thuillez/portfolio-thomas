@@ -5,7 +5,6 @@ export const AnimateContext = createContext([{}, () => {}])
 const initState = {
   menuBtnIsFocus: false,
   sideMenuIsOpen: false,
-  projectIsOpen: false,
   firstScroll: false
 }
 
@@ -16,9 +15,6 @@ const reducer = (state, action) => {
 
     case 'SET_SIDE_MENU_IS_OPEN':
       return { ...state, sideMenuIsOpen: action.value }
-
-    case 'SET_PROJECT_IS_OPEN':
-      return { ...state, projectIsOpen: action.value }
 
     case 'SET_ON_FIRST_SCROLL':
       return { ...state, firstScroll: action.value }
