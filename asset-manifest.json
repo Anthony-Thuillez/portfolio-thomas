@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Anthony-Thuillez/portfolio-thomas/static/css/main.3b586e35.chunk.css",
+    "main.js": "/Anthony-Thuillez/portfolio-thomas/static/js/main.2decf4f1.chunk.js",
+    "main.js.map": "/Anthony-Thuillez/portfolio-thomas/static/js/main.2decf4f1.chunk.js.map",
+    "runtime-main.js": "/Anthony-Thuillez/portfolio-thomas/static/js/runtime-main.cf1aeed3.js",
+    "runtime-main.js.map": "/Anthony-Thuillez/portfolio-thomas/static/js/runtime-main.cf1aeed3.js.map",
+    "static/js/2.8e205b34.chunk.js": "/Anthony-Thuillez/portfolio-thomas/static/js/2.8e205b34.chunk.js",
+    "static/js/2.8e205b34.chunk.js.map": "/Anthony-Thuillez/portfolio-thomas/static/js/2.8e205b34.chunk.js.map",
+    "index.html": "/Anthony-Thuillez/portfolio-thomas/index.html",
+    "static/css/main.3b586e35.chunk.css.map": "/Anthony-Thuillez/portfolio-thomas/static/css/main.3b586e35.chunk.css.map",
+    "static/js/2.8e205b34.chunk.js.LICENSE.txt": "/Anthony-Thuillez/portfolio-thomas/static/js/2.8e205b34.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/Anthony-Thuillez/portfolio-thomas/static/media/EditorialNew-Variable.dd77d9cb.ttf",
+    "static/media/arrow.e8779e4f.svg": "/Anthony-Thuillez/portfolio-thomas/static/media/arrow.e8779e4f.svg",
+    "static/media/borat.4779fea6.gif": "/Anthony-Thuillez/portfolio-thomas/static/media/borat.4779fea6.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cf1aeed3.js",
+    "static/js/2.8e205b34.chunk.js",
+    "static/css/main.3b586e35.chunk.css",
+    "static/js/main.2decf4f1.chunk.js"
+  ]
+}
