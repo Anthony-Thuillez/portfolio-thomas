@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { Color } from '../../styles/variables'
 
 const AnimateHr = keyframes`
-  0% { top: 50px; }
+  0% { top: 80px; }
   100% { top: 0; }
 `
 
@@ -16,33 +16,27 @@ const StyledSeparator = styled.span`
   z-index: 1;
   position: relative;
   display: block;
-  top: 50px;
+  top: 80px;
   height: 1px;
   background: ${Color.border};
 
-  &:before,
-  &:after {
+  &:before {
     position: absolute;
     content: '';
-    height: 20px;
+    height: 50px;
     width: 100%;
     background: ${Color.lightgrey};
   }
 
   &:before {
-    top: -20px;
-  }
-
-  &:after {
-    bottom: -20px;
+    top: -50px;
   }
 
   &.animate {
     animation: ${AnimateHr} 0.5s ease-out forwards;
 
-    &:before,
-    &:after {
-      animation: ${AfterAnimateHr} 0s 0.5s forwards;
+    &:before {
+      animation: ${AfterAnimateHr} 0s 0.3s forwards;
     }
   }
 `
